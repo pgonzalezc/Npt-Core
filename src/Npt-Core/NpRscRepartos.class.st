@@ -17,6 +17,7 @@ NpRscRepartos class >> register [
 { #category : #'rendering-browser' }
 NpRscRepartos >> benita [
 
+	"Repartos correspondientes a Benita"
 	<get>
 	<path: 'benita'>
 	<produces: 'text/html'>

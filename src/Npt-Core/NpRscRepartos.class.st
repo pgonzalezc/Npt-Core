@@ -11,26 +11,33 @@ Class {
 NpRscRepartos class >> register [
 
 	<script>
-	WAAdmin register: self at: 'repartos'
+	WAAdmin register: self at: 'npt-core/restful/repartos'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'rendering-browser' }
 NpRscRepartos >> benita [
 
 	<get>
 	<path: 'benita'>
 	<produces: 'text/html'>
-	
-	^ 'repartos de benita'
+	^ WAHtmlCanvas builder render: [ :html |
+		  self
+			  renderRepartos: [ NptRepartos repartosBenita ]
+			  withTitle: 'Repartos Benita'
+			  on: html ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'rendering-browser' }
 NpRscRepartos >> dolores [
 
 	<get>
 	<path: 'dolores'>
 	<produces: 'text/html'>
-	^ 'repartos de dolores'
+	^ WAHtmlCanvas builder render: [ :html |
+		  self
+			  renderRepartos: [ NptRepartos repartosDolores ]
+			  withTitle: 'Repartos Dolores'
+			  on: html ]
 ]
 
 { #category : #accessing }
@@ -39,7 +46,7 @@ NpRscRepartos >> herederos [
 	^ herederos ifNil: [ herederos := #('dolores' 'benita' 'pilar') ]
 ]
 
-{ #category : #accessing }
+{ #category : #'rendering-browser' }
 NpRscRepartos >> index [
 
 	<get>
@@ -58,7 +65,7 @@ NpRscRepartos >> index [
 			  self herederos do: [ :each |
 					  html anchor
 						  url: '#';
-						  attributeAt: 'hx-get' put: ('/repartos/{1}' format: { each });
+						  attributeAt: 'hx-get' put: ('repartos/{1}' format: { each });
 						  attributeAt: 'hx-target' put: '#repartos';
 						  with: each.
 					  html space ].
@@ -71,5 +78,23 @@ NpRscRepartos >> pilar [
 	<get>
 	<path: 'pilar'>
 	<produces: 'text/html'>
-	^ 'repartos de pilar'
+	^ WAHtmlCanvas builder render: [ :html |
+		  self
+			  renderRepartos: [ NptRepartos repartosPilar ]
+			  withTitle: 'Repartos Pilar'
+			  on: html ]
+]
+
+{ #category : #'private-rendering' }
+NpRscRepartos >> renderRepartos: aBlock withTitle: aString on: html [
+
+	html heading
+		level: 4;
+		with: aString.
+	html table: [
+		html tableHead: [ 
+			#('id' 'heredero' 'nro. orden' 'tipo' 'nombre' '%' 'area') do: [ :each | html tableHeading: each]
+			 ].
+		aBlock value do: [ :each |
+			html tableRow: [ each do: [ :col | html tableData: col ] ] ] ]
 ]

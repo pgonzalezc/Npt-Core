@@ -24,3 +24,15 @@ NptRepartos class >> repartosDe: unHeredero [
 			  stmt close.
 			  client close ] ]
 ]
+
+{ #category : #'as yet unclassified' }
+NptRepartos class >> repartosDolores [
+
+	^ self repartosDe: 'Dolores'
+]
+
+{ #category : #'as yet unclassified' }
+NptRepartos class >> repartosPilar [
+
+	^ self repartosDe: 'Pilar'
+]

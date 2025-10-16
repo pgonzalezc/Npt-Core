@@ -29,7 +29,7 @@ NpRscRepartos >> benita [
 
 { #category : #'rendering-browser' }
 NpRscRepartos >> dolores [
-
+	"repartos correspondientes a Dolores"
 	<get>
 	<path: 'dolores'>
 	<produces: 'text/html'>
